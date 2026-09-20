@@ -499,8 +499,15 @@ def compute_dlogits(probs, targets):
 # Step 68 - derive_dw_on_paper (not yet solved)
 # TODO: implement
 
-# Step 69 - compute_dw_scatter_add (not yet solved)
-# TODO: implement
+# Step 69 - compute_dw_scatter_add
+import numpy as np
+
+def compute_dw_scatter_add(ids, dlogits, vocab_size):
+    """Scatter-add dlogits rows into dW at positions given by ids."""
+    # TODO: build a (vocab_size, vocab_size) dW and accumulate dlogits[b] into row ids[b].
+    matrix = np.zeros((vocab_size,dlogits.shape[-1]),dtype=np.float64)
+    np.add.at(matrix,ids,dlogits)
+    return matrix
 
 # Step 70 - sgd_update_w (not yet solved)
 # TODO: implement
