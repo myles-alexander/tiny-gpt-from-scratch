@@ -472,6 +472,8 @@ def logits_to_probs_rowwise(logits):
 def gather_correct_token_probs(probs, targets):
     """Return probs[i, targets[i]] for each i, shape (B,)."""
     # TODO: pick out the probability assigned to the correct next token for each batch row
+    if probs.ndim == 1:
+        probs = probs.reshape(1, -1)
     return probs[np.arange(len(targets)),targets]
 
 # Step 65 - cross_entropy_loss
@@ -518,8 +520,18 @@ def sgd_update_w(w, dw, learning_rate):
     matrix = w - learning_rate * dw
     return matrix
 
-# Step 71 - run_one_training_step (not yet solved)
-# TODO: implement
+# Step 71 - run_one_training_step
+def run_one_training_step(w, ids, targets, learning_rate):
+    """Run forward, loss, backward, and SGD update once. Return {'w': new_w, 'loss': float}."""
+    # TODO: chain the upstream forward/loss/backward/update helpers into one step
+    logits = forward_logits_lookup(w,ids)
+    inter = logits_to_probs_rowwise(logits)
+    probs = gather_correct_token_probs(inter,targets)
+    loss = cross_entropy_loss(probs,targets)
+    dlogits = compute_dlogits(probs,targets)
+    dw = compute_dw_scatter_add(ids,dlogits,w.shape[-1])
+    new_w = sgd_update_w(w,dw,learning_rate)
+    return {'w':new_w, 'loss':loss}
 
 # Step 72 - train_neural_bigram_loop (not yet solved)
 # TODO: implement
