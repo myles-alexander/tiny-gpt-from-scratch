@@ -472,8 +472,8 @@ def logits_to_probs_rowwise(logits):
 def gather_correct_token_probs(probs, targets):
     """Return probs[i, targets[i]] for each i, shape (B,)."""
     # TODO: pick out the probability assigned to the correct next token for each batch row
-    if probs.ndim == 1:
-        probs = probs.reshape(1, -1)
+    #if probs.ndim == 1:
+    #    probs = probs.reshape(1, -1)
     return probs[np.arange(len(targets)),targets]
 
 # Step 65 - cross_entropy_loss
