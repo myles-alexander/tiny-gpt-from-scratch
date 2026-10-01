@@ -688,7 +688,18 @@ import numpy as np
 def layernorm_forward_affine(x, gamma, beta, eps):
     """Run LayerNorm forward over rows of x with affine params gamma, beta."""
     # TODO: normalize each row to zero mean / unit variance, then apply gamma and beta.
-    return np.var(x,axis=-1,keepdims=True)* gamma + beta
+    mean = np.mean(x, axis=-1, keepdims=True)
+    
+    # Step 2: Calculate the variance for each row
+    var = np.var(x, axis=-1, keepdims=True)
+    
+    # Step 3: Normalize the input rows to zero-mean and unit-variance
+    x_norm = (x - mean) / np.sqrt(var + eps)
+    
+    # Step 4: Scale and shift using the affine parameters (gamma and beta broadcast automatically)
+    out = gamma * x_norm + beta
+    
+    return out
 
 # Step 88 - layernorm_backward_subtract_mean (not yet solved)
 # TODO: implement
