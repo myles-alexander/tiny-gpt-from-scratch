@@ -713,8 +713,15 @@ def layernorm_forward_affine(x, gamma, beta, eps):
 # Step 91 - layernorm_backward_implementation (not yet solved)
 # TODO: implement
 
-# Step 92 - create_token_embedding (not yet solved)
-# TODO: implement
+# Step 92 - create_token_embedding
+import numpy as np
+def create_token_embedding(vocab_size, d_model, scale=0.02):
+    """Initialize the token embedding matrix E of shape (vocab_size, d_model)."""
+    # TODO: return a (vocab_size, d_model) array of small random values controlled by scale
+    #rng = np.random.default_rng(seed=0)
+    #return rng.normal(loc=0, scale=scale, size=(vocab_size,d_model))
+    rng = np.random.seed(0)
+    return np.random.randn(vocab_size,d_model) * scale
 
 # Step 93 - token_embedding_forward (not yet solved)
 # TODO: implement
