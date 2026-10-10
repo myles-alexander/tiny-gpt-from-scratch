@@ -736,7 +736,7 @@ def token_embedding_forward(token_ids, embedding_matrix):
     """
     # TODO: look up the embedding row for each token id and build the cache
     out = embedding_matrix[token_ids]
-    cache = {'token_ids':token_ids,'vocab_size':len(embedding_matrix[0])}
+    cache = {'token_ids':token_ids,'vocab_size':len(embedding_matrix[:,0])}
     return out, cache
 
 # Step 94 - token_embedding_backward (not yet solved)
