@@ -699,7 +699,7 @@ def layernorm_forward_affine(x, gamma, beta, eps):
     # Step 4: Scale and shift using the affine parameters (gamma and beta broadcast automatically)
     out = gamma * x_norm + beta
     
-    return out
+    return {'y':out,'cache':{'gamma':gamma,'eps':eps, 'mean':mean, 'var':var, 'x_hat':x_norm, 'x':x}}
 
 # Step 88 - layernorm_backward_subtract_mean (not yet solved)
 # TODO: implement
