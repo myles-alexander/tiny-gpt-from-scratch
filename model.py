@@ -748,8 +748,12 @@ def token_embedding_backward(d_out, cache):
     np.add.at(grad,cache['token_ids'],d_out)
     return grad
 
-# Step 95 - create_positional_embedding (not yet solved)
-# TODO: implement
+# Step 95 - create_positional_embedding
+def create_positional_embedding(block_size, d_model, scale=0.02):
+    """Initialize the learned positional embedding matrix P of shape (block_size, d_model)."""
+    # TODO: build a (block_size, d_model) matrix of small random values scaled by `scale`
+    P = make_2d_random(block_size,d_model,seed=0)
+    return scale_w_small(P,scale)
 
 # Step 96 - slice_positional_embedding (not yet solved)
 # TODO: implement
