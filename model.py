@@ -838,7 +838,7 @@ def apply_causal_mask(scaled_scores, causal_mask):
     """Replace future positions in scaled_scores with -inf using causal_mask."""
     # TODO: return a (B,T,T) array where positions with causal_mask False are -inf...
     masked = scaled_scores.copy()
-    masked[:,causal_mask] = -np.inf
+    masked = np.where(causal_mask==False,-np.inf,masked)
     return masked
 
 # Step 107 - softmax_attention_weights (not yet solved)
