@@ -958,8 +958,14 @@ def qk_scores_backward(d_scores, cache):
 # Step 115 - qkv_projection_backward (not yet solved)
 # TODO: implement
 
-# Step 116 - choose_attention_head_config (not yet solved)
-# TODO: implement
+# Step 116 - choose_attention_head_config
+def choose_attention_head_config(d_model, n_heads):
+    """Return a config dict {'n_heads', 'd_head', 'd_model'} for multi-head attention."""
+    # TODO: split d_model into n_heads equal-sized d_head chunks and return the config dict
+    if not d_model % n_heads == 0:
+        raise ValueError
+    d_heads = int(d_model / n_heads)
+    return {'n_heads':n_heads, 'd_head':d_heads, 'd_model':d_model}
 
 # Step 117 - create_multihead_qkv_projections (not yet solved)
 # TODO: implement
